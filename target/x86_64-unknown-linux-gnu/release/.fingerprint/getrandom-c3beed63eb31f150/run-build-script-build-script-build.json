@@ -1,1 +1,0 @@
-{"rustc":17940977064402226622,"features":"","declared_features":"","target":0,"profile":0,"path":0,"deps":[[18408407127522236545,"build_script_build",false,13541823643016718402]],"local":[{"RerunIfChanged":{"output":"x86_64-unknown-linux-gnu/release/build/getrandom-c3beed63eb31f150/output","paths":["build.rs"]}}],"rustflags":[],"config":0,"compile_kind":0}

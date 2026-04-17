@@ -208,8 +208,8 @@ function git_handle_push() {
     for remote in $(git remote)
     do
         echo "Pushing to ${remote}..."
-        git push --delete ${remote} latest \
-        && git push ${remote} \
+        git push --delete ${remote} latest 2>/dev/null || true
+        git push ${remote} \
         && git push ${remote} latest \
         && git push ${remote} v${next_version_no}
     done
