@@ -19,6 +19,7 @@ pub enum Message {
     StartDraw,
     StopDraw,
     Tick,
+    MarqueeTick,
     SetDrawMode(DrawMode),
     ExportResults,
     ExportFileSelected(Option<PathBuf>),
@@ -38,6 +39,8 @@ pub struct LotteryApp {
     pub rolling_names: Vec<String>,
     pub tick_count: u32,
     pub error: Option<String>,
+    pub marquee_offset: usize,
+    pub marquee_text: String,
 }
 
 impl Default for LotteryApp {
@@ -52,11 +55,32 @@ impl Default for LotteryApp {
             rolling_names: Vec::new(),
             tick_count: 0,
             error: None,
+            marquee_offset: 0,
+            marquee_text: build_marquee_text(&[], &[]),
         }
     }
 }
 
-// ── update / view / subscription (free functions for iced::application()) ─────
+fn build_marquee_text(prizes: &[Prize], candidates: &[Candidate]) -> String {
+    if prizes.is_empty() && candidates.is_empty() {
+        return "🎰 随机抽奖系统  ·  请导入奖品文件和候选人文件开始抽奖  ·  支持 Excel (xlsx/xls/ods) 和 TXT 格式".to_string();
+    }
+    let prize_part = if prizes.is_empty() {
+        "尚未导入奖品".to_string()
+    } else {
+        let names: Vec<String> = prizes.iter().map(|p| format!("{}×{}", p.name, p.total)).collect();
+        format!("奖品: {}", names.join(" | "))
+    };
+    let candidate_part = if candidates.is_empty() {
+        "尚未导入候选人".to_string()
+    } else {
+        let names: Vec<&str> = candidates.iter().map(|c| c.name.as_str()).collect();
+        format!("候选人({}): {}", candidates.len(), names.join(" · "))
+    };
+    format!("🎰  {}  ★★★  {}", prize_part, candidate_part)
+}
+
+// ── update / view / subscription ──────────────────────────────────────────────
 
 impl LotteryApp {
     pub fn update(&mut self, message: Message) -> Task<Message> {
@@ -65,8 +89,10 @@ impl LotteryApp {
                 return Task::perform(
                     async {
                         rfd::AsyncFileDialog::new()
-                            .set_title("选择奖品 Excel 文件")
+                            .set_title("选择奖品文件")
+                            .add_filter("支持的格式", &["xlsx", "xls", "ods", "txt"])
                             .add_filter("Excel", &["xlsx", "xls", "ods"])
+                            .add_filter("文本", &["txt"])
                             .pick_file()
                             .await
                             .map(|f| f.path().to_path_buf())
@@ -79,8 +105,10 @@ impl LotteryApp {
                 return Task::perform(
                     async {
                         rfd::AsyncFileDialog::new()
-                            .set_title("选择候选人 Excel 文件")
+                            .set_title("选择候选人文件")
+                            .add_filter("支持的格式", &["xlsx", "xls", "ods", "txt"])
                             .add_filter("Excel", &["xlsx", "xls", "ods"])
+                            .add_filter("文本", &["txt"])
                             .pick_file()
                             .await
                             .map(|f| f.path().to_path_buf())
@@ -94,6 +122,7 @@ impl LotteryApp {
                     self.prizes = prizes;
                     self.selected_prize = None;
                     self.error = None;
+                    self.marquee_text = build_marquee_text(&self.prizes, &self.candidates);
                 }
                 Err(e) => self.error = Some(e),
             },
@@ -102,6 +131,7 @@ impl LotteryApp {
                 Ok(candidates) => {
                     self.candidates = candidates;
                     self.error = None;
+                    self.marquee_text = build_marquee_text(&self.prizes, &self.candidates);
                 }
                 Err(e) => self.error = Some(e),
             },
@@ -178,6 +208,10 @@ impl LotteryApp {
                 }
             }
 
+            Message::MarqueeTick => {
+                self.marquee_offset = self.marquee_offset.wrapping_add(1);
+            }
+
             Message::StopDraw => {
                 if self.draw_state != DrawState::Drawing {
                     return Task::none();
@@ -211,6 +245,7 @@ impl LotteryApp {
                         }
                     }
                 }
+                self.marquee_text = build_marquee_text(&self.prizes, &self.candidates);
             }
 
             Message::ExportResults => {
@@ -222,8 +257,10 @@ impl LotteryApp {
                     async {
                         rfd::AsyncFileDialog::new()
                             .set_title("保存抽奖结果")
+                            .add_filter("Excel", &["xlsx"])
+                            .add_filter("CSV", &["csv"])
                             .add_filter("文本文件", &["txt"])
-                            .set_file_name("lottery_result.txt")
+                            .set_file_name("lottery_result.xlsx")
                             .save_file()
                             .await
                             .map(|f| f.path().to_path_buf())
@@ -252,6 +289,7 @@ impl LotteryApp {
                 self.selected_prize = None;
                 self.draw_state = DrawState::Idle;
                 self.error = None;
+                self.marquee_text = build_marquee_text(&self.prizes, &self.candidates);
             }
 
             Message::DismissError => {
@@ -262,15 +300,17 @@ impl LotteryApp {
         Task::none()
     }
 
-    pub fn view(&self) -> Element<Message> {
+    pub fn view(&self) -> Element<'_, Message> {
         crate::view::root(self)
     }
 
     pub fn subscription(&self) -> Subscription<Message> {
+        let marquee = iced::time::every(Duration::from_millis(40)).map(|_| Message::MarqueeTick);
         if self.draw_state == DrawState::Drawing {
-            iced::time::every(Duration::from_millis(80)).map(|_| Message::Tick)
+            let draw_tick = iced::time::every(Duration::from_millis(80)).map(|_| Message::Tick);
+            Subscription::batch([draw_tick, marquee])
         } else {
-            Subscription::none()
+            marquee
         }
     }
 }

@@ -1,0 +1,10 @@
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/aarch64-unknown-linux-gnu/release/deps/wayland_client-a8466d12681f2319.d: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/conn.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/event_queue.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/globals.rs
+
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/aarch64-unknown-linux-gnu/release/deps/libwayland_client-a8466d12681f2319.rlib: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/conn.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/event_queue.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/globals.rs
+
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/aarch64-unknown-linux-gnu/release/deps/libwayland_client-a8466d12681f2319.rmeta: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/conn.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/event_queue.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/globals.rs
+
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/lib.rs:
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/conn.rs:
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/event_queue.rs:
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wayland-client-0.31.14/src/globals.rs:

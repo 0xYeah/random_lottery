@@ -8,6 +8,7 @@ pub struct Prize {
 #[derive(Debug, Clone)]
 pub struct Candidate {
     pub name: String,
+    #[allow(dead_code)]
     pub id: Option<String>,
     pub won: bool,
 }

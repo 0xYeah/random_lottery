@@ -1,6 +1,6 @@
 [package]
 name = "random_lottery"
-version = "0.1.0"
+version = "0.0.2"
 edition = "2021"
 
 [[bin]]
@@ -8,11 +8,22 @@ name = "random_lottery"
 path = "src/main.rs"
 
 [dependencies]
-iced = { version = "0.13", features = ["tokio"] }
 calamine = "0.24"
+rust_xlsxwriter = "0.80"
 rfd = "0.15"
 rand = "0.8"
 tokio = { version = "1", features = ["full"] }
+
+# wgpu (GPU) for macOS/Linux; tiny-skia (software) for Windows cross-compilation
+# d3dcompiler stub unavailable in zig MinGW sysroot
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+iced = { version = "0.13", features = ["tokio"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+iced = { version = "0.13", default-features = false, features = ["tokio", "tiny-skia", "image", "svg"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_cjk_font)'] }
 
 [profile.release]
 opt-level = 3

@@ -1,0 +1,10 @@
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/aarch64-unknown-linux-gnu/release/deps/smithay_clipboard-0d97a56581c5c91d.d: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/mime.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/state.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/worker.rs
+
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/aarch64-unknown-linux-gnu/release/deps/libsmithay_clipboard-0d97a56581c5c91d.rlib: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/mime.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/state.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/worker.rs
+
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/aarch64-unknown-linux-gnu/release/deps/libsmithay_clipboard-0d97a56581c5c91d.rmeta: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/mime.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/state.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/worker.rs
+
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/lib.rs:
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/mime.rs:
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/state.rs:
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/smithay-clipboard-0.7.3/src/worker.rs:

@@ -1,0 +1,8 @@
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/x86_64-apple-darwin/release/deps/guillotiere-aa53f6c70adad2a1.d: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/allocator.rs
+
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/x86_64-apple-darwin/release/deps/libguillotiere-aa53f6c70adad2a1.rlib: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/allocator.rs
+
+/Users/wmyeah/workSpace/projects/github.com/0xYeah/random_lottery/target/x86_64-apple-darwin/release/deps/libguillotiere-aa53f6c70adad2a1.rmeta: /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/lib.rs /Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/allocator.rs
+
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/lib.rs:
+/Users/wmyeah/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/guillotiere-0.6.2/src/allocator.rs:
