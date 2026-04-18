@@ -26,3 +26,4 @@ logs/
 .auto_coding/
 auto_coding/
 .trae/
+Cargo.lock
