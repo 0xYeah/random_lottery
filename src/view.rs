@@ -127,7 +127,9 @@ fn toolbar(app: &LotteryApp) -> Element<'_, Message> {
     ]
     .spacing(8);
 
+    let repeat_label = if app.repeat_win { "可重复中奖 ✓" } else { "可重复中奖" };
     let right = row![
+        toggle_button(repeat_label, Message::ToggleRepeatWin, app.repeat_win, drawing),
         ghost_button("导出结果", Message::ExportResults, drawing),
         danger_button("重置", Message::Reset, drawing),
     ]
@@ -405,16 +407,43 @@ fn result_panel(app: &LotteryApp) -> Element<'_, Message> {
         .width(Length::Fill)
         .height(1);
 
-    let mut records_col = Column::new().spacing(10);
+    // Candidate list — two columns
+    let candidates_grid = if app.candidates.is_empty() {
+        row![text("尚未导入候选人").size(12).color(c::TEXT_MUTED)]
+    } else {
+        let mid = (app.candidates.len() + 1) / 2;
+        let mut col_a = Column::new().spacing(2).width(Length::FillPortion(1));
+        let mut col_b = Column::new().spacing(2).width(Length::FillPortion(1));
+        for (i, c_item) in app.candidates.iter().enumerate() {
+            let color = if c_item.won { c::TEXT_MUTED } else { c::TEXT_PRIMARY };
+            let label = if c_item.won {
+                format!("✓ {}", c_item.name)
+            } else {
+                format!("· {}", c_item.name)
+            };
+            let t = text(label).size(12).color(color);
+            if i < mid { col_a = col_a.push(t); } else { col_b = col_b.push(t); }
+        }
+        row![col_a, col_b].spacing(4)
+    };
+
+    // Win records — two columns (winner names side by side per prize)
+    let mut records_col = Column::new().spacing(8);
     if app.win_records.is_empty() {
         records_col = records_col.push(text("暂无中奖记录").size(13).color(c::TEXT_MUTED));
     } else {
         for record in app.win_records.iter().rev() {
-            let winners_str = record.winners.join("、");
+            let mid = (record.winners.len() + 1) / 2;
+            let mut w_col_a = Column::new().spacing(2).width(Length::FillPortion(1));
+            let mut w_col_b = Column::new().spacing(2).width(Length::FillPortion(1));
+            for (i, w) in record.winners.iter().enumerate() {
+                let t = text(w).size(13).color(c::SUCCESS);
+                if i < mid { w_col_a = w_col_a.push(t); } else { w_col_b = w_col_b.push(t); }
+            }
             records_col = records_col.push(
                 column![
                     text(&record.prize_name).size(13).color(c::GOLD),
-                    text(winners_str).size(14).color(c::SUCCESS),
+                    row![w_col_a, w_col_b].spacing(4),
                 ]
                 .spacing(2),
             );
@@ -429,15 +458,27 @@ fn result_panel(app: &LotteryApp) -> Element<'_, Message> {
         Space::with_height(10),
         stats,
         Space::with_height(10),
+        container(Space::with_height(1))
+            .style(|_: &Theme| container::Style {
+                background: Some(iced::Background::Color(c::GOLD_DIM)),
+                ..Default::default()
+            })
+            .width(Length::Fill)
+            .height(1),
+        Space::with_height(6),
+        text("候选人列表").size(14).color(c::TEXT_SECONDARY),
+        Space::with_height(4),
+        scrollable(candidates_grid).height(Length::FillPortion(1)),
+        Space::with_height(8),
         divider,
-        Space::with_height(10),
+        Space::with_height(6),
         text("中奖记录").size(14).color(c::TEXT_SECONDARY),
         Space::with_height(6),
-        scrollable(records_col).height(Length::Fill),
+        scrollable(records_col).height(Length::FillPortion(1)),
     ]
     .height(Length::Fill);
 
-    panel_container(content.into(), 220)
+    panel_container(content.into(), 260)
 }
 
 fn stat_row(label: &'static str, value: String) -> Element<'static, Message> {
@@ -518,6 +559,30 @@ fn ghost_button(label: &str, msg: Message, disabled: bool) -> Element<'static, M
             ..Default::default()
         })
         .padding(Padding::from([7, 14]))
+        .into()
+}
+
+fn toggle_button(label: &str, msg: Message, active: bool, disabled: bool) -> Element<'static, Message> {
+    let label = label.to_string();
+    button(text(label).size(13).color(if active { c::GOLD } else { c::TEXT_MUTED }))
+        .on_press_maybe(if disabled { None } else { Some(msg) })
+        .style(move |_: &Theme, status| button::Style {
+            background: Some(iced::Background::Color(if active {
+                Color { a: 0.15, ..c::GOLD }
+            } else if matches!(status, button::Status::Hovered) {
+                Color { a: 0.06, ..c::GOLD }
+            } else {
+                Color::TRANSPARENT
+            })),
+            border: Border {
+                color: if active { c::GOLD } else { c::TEXT_MUTED },
+                width: 1.0,
+                radius: 6.0.into(),
+            },
+            text_color: if active { c::GOLD } else { c::TEXT_MUTED },
+            ..Default::default()
+        })
+        .padding(Padding::from([7, 12]))
         .into()
 }
 

@@ -17,10 +17,10 @@ tokio = { version = "1", features = ["full"] }
 # wgpu (GPU) for macOS/Linux; tiny-skia (software) for Windows cross-compilation
 # d3dcompiler stub unavailable in zig MinGW sysroot
 [target.'cfg(not(target_os = "windows"))'.dependencies]
-iced = { version = "0.13", features = ["tokio"] }
+iced = { version = "0.13", features = ["tokio", "canvas"] }
 
 [target.'cfg(target_os = "windows")'.dependencies]
-iced = { version = "0.13", default-features = false, features = ["tokio", "tiny-skia", "image", "svg"] }
+iced = { version = "0.13", default-features = false, features = ["tokio", "tiny-skia", "image", "svg", "canvas"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(has_cjk_font)'] }

@@ -15,8 +15,8 @@ fn main() -> iced::Result {
     let app = iced::application("随机抽奖系统", LotteryApp::update, LotteryApp::view)
         .subscription(LotteryApp::subscription)
         .window(iced::window::Settings {
-            size: Size::new(1024.0, 680.0),
-            min_size: Some(Size::new(800.0, 520.0)),
+            size: Size::new(1440.0, 900.0),
+            min_size: Some(Size::new(900.0, 600.0)),
             ..Default::default()
         });
 

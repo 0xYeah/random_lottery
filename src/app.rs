@@ -25,6 +25,7 @@ pub enum Message {
     ExportFileSelected(Option<PathBuf>),
     Reset,
     DismissError,
+    ToggleRepeatWin,
 }
 
 // ── App State ─────────────────────────────────────────────────────────────────
@@ -41,6 +42,7 @@ pub struct LotteryApp {
     pub error: Option<String>,
     pub marquee_offset: usize,
     pub marquee_text: String,
+    pub repeat_win: bool,
 }
 
 impl Default for LotteryApp {
@@ -57,6 +59,7 @@ impl Default for LotteryApp {
             error: None,
             marquee_offset: 0,
             marquee_text: build_marquee_text(&[], &[]),
+            repeat_win: false,
         }
     }
 }
@@ -149,8 +152,16 @@ impl LotteryApp {
                 self.draw_mode = mode;
             }
 
+            Message::ToggleRepeatWin => {
+                self.repeat_win = !self.repeat_win;
+            }
+
             Message::StartDraw => {
-                let available_count = self.candidates.iter().filter(|c| !c.won).count();
+                let available_count = if self.repeat_win {
+                    self.candidates.len()
+                } else {
+                    self.candidates.iter().filter(|c| !c.won).count()
+                };
                 let prize_ok = self
                     .selected_prize
                     .and_then(|i| self.prizes.get(i))
@@ -178,7 +189,7 @@ impl LotteryApp {
                 let pool: Vec<String> = self
                     .candidates
                     .iter()
-                    .filter(|c| !c.won)
+                    .filter(|c| self.repeat_win || !c.won)
                     .map(|c| c.name.clone())
                     .collect();
 
@@ -227,9 +238,11 @@ impl LotteryApp {
                         let to_mark = self.rolling_names.len().min(prize.remaining as usize);
                         let winners = self.rolling_names[..to_mark].to_vec();
 
-                        for name in &winners {
-                            if let Some(c) = self.candidates.iter_mut().find(|c| &c.name == name) {
-                                c.won = true;
+                        if !self.repeat_win {
+                            for name in &winners {
+                                if let Some(c) = self.candidates.iter_mut().find(|c| &c.name == name) {
+                                    c.won = true;
+                                }
                             }
                         }
 

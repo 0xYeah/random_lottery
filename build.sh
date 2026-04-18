@@ -88,7 +88,7 @@ build_target() {
         return 0
     fi
 
-    local zip_name="${PRODUCT_NAME}_${os_label}_${arch_label}_${CURRENT_VERSION}.zip"
+    local zip_name="${PRODUCT_NAME}_${os_label}_${arch_label}_v${CURRENT_VERSION}.zip"
     mkdir -p "$UPLOAD_TMP_DIR"
     (cd "$out_dir" && zip -r "../../upload_tmp_dir/${zip_name}" .)
     echo "✅ $zip_name"
@@ -104,7 +104,7 @@ make_universal_mac() {
     local out_dir="${BUILD_PATH}/${RUN_MODE}/macos_universal"
     mkdir -p "$out_dir"
     lipo -create "$arm_bin" "$x86_bin" -output "${out_dir}/${PRODUCT_NAME}"
-    local zip_name="${PRODUCT_NAME}_macos_universal_${CURRENT_VERSION}.zip"
+    local zip_name="${PRODUCT_NAME}_macos_universal_v${CURRENT_VERSION}.zip"
     (cd "$out_dir" && zip -r "../../upload_tmp_dir/${zip_name}" .)
     echo "✅ $zip_name"
 }
