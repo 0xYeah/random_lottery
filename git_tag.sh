@@ -151,17 +151,19 @@ function gen_changelog_if_possible() {
             echo "- (no commits between releases)"
             echo "- (no file changes)"
         else
-            # 概览（排除锁文件，避免 GitHub Release body 超 125000 字符限制）
+            # 概览（总增删行/文件数）
+            # 例如： " 3 files changed, 10 insertions(+), 2 deletions(-)"
             local shortstat
-            shortstat="$(git diff --shortstat "${range}" -- ':!Cargo.lock' ':!*.lock' ':!package-lock.json' ':!yarn.lock' 2>/dev/null || true)"
+            shortstat="$(git diff --shortstat "${range}" 2>/dev/null || true)"
             if [ -n "${shortstat}" ]; then
                 echo "- ${shortstat}"
             else
-                echo "- (no file changes outside lock files)"
+                echo "- (no file changes)"
             fi
             echo
+            # 文件级统计（不输出具体 diff 内容）
             echo '```'
-            git diff --stat "${range}" -- ':!Cargo.lock' ':!*.lock' ':!package-lock.json' ':!yarn.lock' 2>/dev/null || true
+            git diff --stat "${range}" 2>/dev/null || true
             echo '```'
         fi
         echo
