@@ -27,6 +27,13 @@ jobs:
           custom_tag: ${{ env.LATEST_TAG }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Truncate changelog if oversized
+        run: |
+          f="changelog/${{ env.LATEST_TAG }}.md"
+          if [ -f "$f" ]; then
+            python3 -c "f='$f'; c=open(f).read(); open(f,'w').write(c[:120000]+'\\n\\n...(truncated)' if len(c)>120000 else c)"
+          fi
+
       - name: Step GitHub release
         id: stepCreateRelease
         uses: ncipollo/release-action@v1
