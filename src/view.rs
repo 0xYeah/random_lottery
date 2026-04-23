@@ -224,9 +224,12 @@ fn draw_panel(app: &LotteryApp) -> Element<'_, Message> {
     let can_start = !drawing && app.selected_prize.is_some() && !app.candidates.is_empty();
 
     let btn_start = button(
-        text(if drawing { "抽奖中..." } else { "开  始  抽  奖" })
-            .size(18)
-            .color(if can_start { c::BG_PRIMARY } else { c::TEXT_MUTED }),
+        container(
+            text(if drawing { "抽奖中…" } else { "开始抽奖" })
+                .size(16)
+                .color(if can_start { c::BG_PRIMARY } else { c::TEXT_MUTED }),
+        )
+        .center_x(Length::Fill),
     )
     .on_press_maybe(if can_start { Some(Message::StartDraw) } else { None })
     .style(move |_: &Theme, status| button::Style {
@@ -241,13 +244,16 @@ fn draw_panel(app: &LotteryApp) -> Element<'_, Message> {
         text_color: if can_start { c::BG_PRIMARY } else { c::TEXT_MUTED },
         ..Default::default()
     })
-    .width(Length::Fill)
-    .padding(Padding::from([12, 20]));
+    .width(Length::FillPortion(3))
+    .padding(Padding::from([11, 16]));
 
     let btn_stop = button(
-        text("停  止")
-            .size(16)
-            .color(if drawing { c::GOLD } else { c::TEXT_MUTED }),
+        container(
+            text("停止")
+                .size(16)
+                .color(if drawing { c::GOLD } else { c::TEXT_MUTED }),
+        )
+        .center_x(Length::Fill),
     )
     .on_press_maybe(if drawing { Some(Message::StopDraw) } else { None })
     .style(move |_: &Theme, status| button::Style {
@@ -266,8 +272,17 @@ fn draw_panel(app: &LotteryApp) -> Element<'_, Message> {
         text_color: if drawing { c::GOLD } else { c::TEXT_MUTED },
         ..Default::default()
     })
-    .width(Length::Fill)
-    .padding(Padding::from([10, 20]));
+    .width(Length::FillPortion(3))
+    .padding(Padding::from([11, 16]));
+
+    let action_row = row![
+        Space::with_width(Length::FillPortion(1)),
+        btn_start,
+        Space::with_width(Length::Fixed(24.0)),
+        btn_stop,
+        Space::with_width(Length::FillPortion(1)),
+    ]
+    .width(Length::Fill);
 
     let prize_info = match app.selected_prize.and_then(|i| app.prizes.get(i)) {
         Some(p) => {
@@ -291,9 +306,7 @@ fn draw_panel(app: &LotteryApp) -> Element<'_, Message> {
         Space::with_height(12),
         prize_info,
         Space::with_height(16),
-        btn_start,
-        Space::with_height(8),
-        btn_stop,
+        action_row,
     ]
     .align_x(Alignment::Center)
     .height(Length::Fill);

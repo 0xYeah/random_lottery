@@ -1,35 +1,35 @@
 #![allow(dead_code)]
 use iced::Color;
 
-// ─── Obsidian Gala ────────────────────────────────────────────────────────────
-// OLED-optimized near-black with violet undertones for ceremonial depth.
-// Palette direction: ui-ux-pro-max "Dark Mode OLED" + "Luxury/Premium" blend.
+// ─── Midnight Champagne ───────────────────────────────────────────────────────
+// Neutral charcoal base (no color cast) + restrained champagne gold accent.
+// Goal: calm luxury, readable contrast, less neon than prior palette.
 
-// Background layers
-pub const BG_PRIMARY: Color = Color::from_rgb(0.047, 0.043, 0.063);    // #0C0B10
-pub const BG_SECONDARY: Color = Color::from_rgb(0.075, 0.071, 0.102);  // #13121A
-pub const BG_CARD: Color = Color::from_rgb(0.110, 0.102, 0.149);       // #1C1A26
-pub const BG_PANEL: Color = Color::from_rgb(0.094, 0.086, 0.133);      // #181622
+// Background layers — true neutral charcoal, no violet undertone
+pub const BG_PRIMARY: Color = Color::from_rgb(0.055, 0.055, 0.063);    // #0E0E10
+pub const BG_SECONDARY: Color = Color::from_rgb(0.090, 0.090, 0.106);  // #17171B
+pub const BG_CARD: Color = Color::from_rgb(0.118, 0.118, 0.141);       // #1E1E24
+pub const BG_PANEL: Color = Color::from_rgb(0.102, 0.102, 0.122);      // #1A1A1F
 
-// Ceremonial Gold — true metallic, not amber
-pub const GOLD: Color = Color::from_rgb(0.996, 0.831, 0.110);          // #FED41C
-pub const GOLD_DIM: Color = Color::from_rgb(0.682, 0.490, 0.020);      // #AE7D05
-pub const GOLD_HOVER: Color = Color::from_rgb(1.0, 0.929, 0.490);      // #FFED7D
+// Champagne Gold — warm metallic, not saturated yellow
+pub const GOLD: Color = Color::from_rgb(0.831, 0.659, 0.294);          // #D4A84B
+pub const GOLD_DIM: Color = Color::from_rgb(0.541, 0.435, 0.180);      // #8A6F2E
+pub const GOLD_HOVER: Color = Color::from_rgb(0.910, 0.745, 0.373);    // #E8BE5F
 
-// Text — warm cream for luxury feel, 7:1+ contrast on BG_PRIMARY
-pub const TEXT_PRIMARY: Color = Color::from_rgb(0.976, 0.953, 0.906);  // #F9F3E7
-pub const TEXT_SECONDARY: Color = Color::from_rgb(0.702, 0.671, 0.608);// #B3AB9B
-pub const TEXT_MUTED: Color = Color::from_rgb(0.408, 0.388, 0.353);    // #68635A
+// Text — warm ivory, clear contrast on charcoal
+pub const TEXT_PRIMARY: Color = Color::from_rgb(0.929, 0.902, 0.839);  // #EDE6D6
+pub const TEXT_SECONDARY: Color = Color::from_rgb(0.659, 0.624, 0.553);// #A89F8D
+pub const TEXT_MUTED: Color = Color::from_rgb(0.420, 0.392, 0.333);    // #6B6455
 
 // Status
-pub const SUCCESS: Color = Color::from_rgb(0.059, 0.929, 0.576);       // #0FED93 winner emerald
-pub const DANGER: Color = Color::from_rgb(0.941, 0.251, 0.286);        // #F04049
+pub const SUCCESS: Color = Color::from_rgb(0.290, 0.871, 0.502);       // #4ADE80 soft emerald
+pub const DANGER: Color = Color::from_rgb(0.878, 0.282, 0.282);        // #E04848
 
 // Button states
 pub const BTN_PRIMARY_BG: Color = GOLD_DIM;
-pub const BTN_DANGER_BG: Color = Color::from_rgb(0.549, 0.137, 0.165); // #8C232A
-pub const BTN_DISABLED_BG: Color = Color::from_rgb(0.196, 0.188, 0.216);// #323037
+pub const BTN_DANGER_BG: Color = Color::from_rgb(0.478, 0.125, 0.141); // #7A2024
+pub const BTN_DISABLED_BG: Color = Color::from_rgb(0.165, 0.161, 0.188);// #2A2930
 
-// Draw animation — theatrical pure-black for maximum drama
-pub const ROLL_BG: Color = Color::from_rgb(0.016, 0.012, 0.027);       // #040309
+// Draw animation — deep near-black for stage contrast
+pub const ROLL_BG: Color = Color::from_rgb(0.020, 0.020, 0.027);       // #050507
 pub const ROLL_BORDER: Color = GOLD;
